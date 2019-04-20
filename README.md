@@ -1,4 +1,4 @@
-# Catalog of books
+# Template structure for front end projects (webpack with plugins).
 
 
 ## Usage
