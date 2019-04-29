@@ -11,7 +11,16 @@
     <link rel="shortcut icon" type="image/png" href="/favicon.png" />
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <input type="text" value="1000" class="text" id="current-budget" />
+      <input type="text" value="2000" class="text" id="new-budget" />
+      <div id="sliders"></div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.4.0.min.js"
+      integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+      crossorigin="anonymous"
+    ></script>
     <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
   </body>
 </html>
