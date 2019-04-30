@@ -63,18 +63,31 @@ $(document).ready(() => {
     newValues: function(newValue) {
       const currentBudgetValue = this.currentBudget.value;
       const newBudgetValue = newValue.currentTarget.value;
+      let extraValue = 0;
+      let extrabudget = 0;
 
-      if (newBudgetValue > currentBudgetValue) {
-        const newValues = this.sliders.forEach(slider => {
-          const newVal = (slider.value / currentBudgetValue) * newBudgetValue;
+      this.sliders.forEach(slider => {
+        const newVal = (slider.value / currentBudgetValue) * +newBudgetValue;
+
+        if (newBudgetValue > currentBudgetValue) {
           slider.value = newVal;
-        });
-      } else {
-        const newValues = this.sliders.forEach(slider => {
-          const newVal =
-            ((slider.value - slider.spent) / currentBudgetValue) *
-            newBudgetValue;
-          slider.value = newVal < slider.spent ? slider.spent : newVal;
+        } else {
+          if (newVal < slider.spent) {
+            slider.value = slider.spent;
+            extraValue += slider.spent - newVal;
+            extrabudget += slider.value;
+          }
+        }
+      });
+
+      if (extraValue) {
+        this.sliders.forEach(slider => {
+          if (slider.value !== slider.spent) {
+            const newVal =
+              (slider.value / (+currentBudgetValue + extraValue)) *
+              (+newBudgetValue + extraValue);
+            slider.value = newVal;
+          }
         });
       }
 
